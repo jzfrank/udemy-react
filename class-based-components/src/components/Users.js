@@ -19,6 +19,12 @@ class Users extends Component {
     // And it has to be named state. The name is not up to you.
   }
 
+  componentDidUpdate() {
+    if (this.props.users.length === 0) {
+      throw new Error("No users provided!");
+    }
+  }
+
   toggleUsersHandler() {
     this.setState((prevState) => {
       return { showUsers: !prevState.showUsers };

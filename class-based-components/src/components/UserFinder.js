@@ -1,8 +1,9 @@
+import { Component } from "react/cjs/react.production.min";
 import { Fragment, useState, useEffect } from "react";
 
 import Users from "./Users";
 import classes from "./UserFinder.module.css";
-import { Component } from "react/cjs/react.production.min";
+import UsersContext from "../store/users-context";
 
 const DUMMY_USERS = [
   { id: "u1", name: "Max" },
@@ -11,6 +12,8 @@ const DUMMY_USERS = [
 ];
 
 class UserFinder extends Component {
+  static contextType = UsersContext;
+
   constructor() {
     super();
     this.state = {
@@ -22,7 +25,7 @@ class UserFinder extends Component {
   componentDidMount() {
     // send http request ...
     this.setState({
-      filteredUsers: DUMMY_USERS,
+      filteredUsers: this.context.users,
     });
   }
 
