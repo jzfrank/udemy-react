@@ -14,7 +14,7 @@ const BasicForm = (props) => {
   } = useInput(isNotEmpty);
 
   const {
-    vaue: enteredLastName,
+    value: enteredLastName,
     isValid: lastNameIsValid,
     hasError: lastNameHasError,
     valueChangeHandler: lastNameChangeHandler,
@@ -23,7 +23,7 @@ const BasicForm = (props) => {
   } = useInput(isNotEmpty);
 
   const {
-    vaue: enteredEmail,
+    value: enteredEmail,
     isValid: emailIsValid,
     hasError: emailHasError,
     valueChangeHandler: emailChangeHandler,
@@ -79,9 +79,6 @@ const BasicForm = (props) => {
           {firstNameHasError && (
             <p className="error-text">first name should be nonempty!</p>
           )}
-          <p>
-            {enteredFirstName}, {enteredLastName}, {enteredEmail}
-          </p>
         </div>
         <div className={lastNameClassName}>
           <label htmlFor="name">Last Name</label>

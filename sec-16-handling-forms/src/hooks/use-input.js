@@ -9,7 +9,6 @@ const useInput = (validateValue) => {
 
   const valueChangeHandler = (event) => {
     setEnteredValue(event.target.value);
-    console.log("valueChangeHandler", event.target.value, enteredValue);
   };
 
   const inputBlurHandler = () => {
@@ -19,7 +18,6 @@ const useInput = (validateValue) => {
   const reset = () => {
     setEnteredValue("");
     setIsTouched(false);
-    console.log("reset is called", enteredValue, isTouched);
   };
 
   return {
