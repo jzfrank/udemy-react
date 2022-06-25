@@ -36,26 +36,21 @@ const Cart = (props) => {
     </ul>
   );
 
-  // const formSubmissionHandler = async (event) => {
-  //   event.preventDefault();
-  //   console.log("Form is submitted");
-  //   cartCtx.items.map(async (item) => {
-  //     const request = await fetch(
-  //       "https://food-order-app-http-86ce4-default-rtdb.firebaseio.com/cart.json",
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(item),
-  //       }
-  //     );
-  //     console.log(request, item);
-  //   });
-  // };
-
   const orderHandler = (event) => {
     setIsCheckout(true);
+  };
+
+  const submitOrderHandler = (userData) => {
+    fetch(
+      "https://food-order-app-http-86ce4-default-rtdb.firebaseio.com/orders.json",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          user: userData,
+          orderedItems: cartCtx.items,
+        }),
+      }
+    );
   };
 
   const modalActions = (
@@ -80,7 +75,9 @@ const Cart = (props) => {
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-      {isCheckout && <Checkout onCancel={props.onClose} />}
+      {isCheckout && (
+        <Checkout onCancel={props.onClose} onConfirm={submitOrderHandler} />
+      )}
       {!isCheckout && modalActions}
     </Modal>
   );
