@@ -2,11 +2,11 @@
 import { legacy_createStore as createStore } from "redux";
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
-const INITIAL_STATE = { counter: 0, showCounter: true };
+const INITIAL_COUNTER_STATE = { counter: 0, showCounter: true };
 
 const counterSlice = createSlice({
   name: "counter",
-  initialState: INITIAL_STATE,
+  initialState: INITIAL_COUNTER_STATE,
   reducers: {
     increment(state) {
       state.counter++;
@@ -26,51 +26,29 @@ const counterSlice = createSlice({
   },
 });
 
-// const counterReducer = (state = INITIAL_STATE, action) => {
-//   switch (action.type) {
-//     case "increment":
-//       return {
-//         ...state,
-//         counter: state.counter + 1,
-//       };
-//       break;
-//     case "decrement":
-//       return {
-//         ...state,
-//         counter: state.counter - 1,
-//       };
-//       break;
-//     case "increase":
-//       return {
-//         ...state,
-//         counter: state.counter + action.amount,
-//       };
-//       break;
-//     case "decrease":
-//       return {
-//         ...state,
-//         counter: state.counter - action.amount,
-//       };
-//       break;
-//     case "toggle":
-//       return {
-//         ...state,
-//         showCounter: !state.showCounter,
-//       };
-//       break;
-//     default:
-//       return state;
-//   }
-// };
+const INITIAL_ISAUTHENTICATED_STATE = { isAuthenticated: false };
 
-// const store = createStore(counterReducer);
-
-// counterSlice.actions.toggleCounter; //action creator
+const isAuthenticatedSlice = createSlice({
+  name: "isAuthenticated",
+  initialState: INITIAL_ISAUTHENTICATED_STATE,
+  reducers: {
+    login(state) {
+      state.isAuthenticated = true;
+    },
+    logout(state) {
+      state.isAuthenticated = false;
+    },
+  },
+});
 
 const store = configureStore({
-  reducer: counterSlice.reducer,
+  reducer: {
+    counter: counterSlice.reducer,
+    isAuthenticated: isAuthenticatedSlice.reducer,
+  },
 });
 
 export const counterActions = counterSlice.actions;
+export const isAuthenticatedActions = isAuthenticatedSlice.actions;
 
 export default store;
