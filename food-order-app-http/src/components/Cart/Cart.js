@@ -1,9 +1,9 @@
-import { useContext } from 'react';
+import { useContext } from "react";
 
-import Modal from '../UI/Modal';
-import CartItem from './CartItem';
-import classes from './Cart.module.css';
-import CartContext from '../../store/cart-context';
+import Modal from "../UI/Modal";
+import CartItem from "./CartItem";
+import classes from "./Cart.module.css";
+import CartContext from "../../store/cart-context";
 
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
@@ -20,7 +20,7 @@ const Cart = (props) => {
   };
 
   const cartItems = (
-    <ul className={classes['cart-items']}>
+    <ul className={classes["cart-items"]}>
       {cartCtx.items.map((item) => (
         <CartItem
           key={item.id}
@@ -34,19 +34,41 @@ const Cart = (props) => {
     </ul>
   );
 
+  const formSubmissionHandler = async (event) => {
+    event.preventDefault();
+    console.log("Form is submitted");
+    cartCtx.items.map(async (item) => {
+      const request = await fetch(
+        "https://food-order-app-http-86ce4-default-rtdb.firebaseio.com/cart.json",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(item),
+        }
+      );
+      console.log(request, item);
+    });
+  };
+
+  console.log(cartCtx.items);
+
   return (
     <Modal onClose={props.onClose}>
-      {cartItems}
-      <div className={classes.total}>
-        <span>Total Amount</span>
-        <span>{totalAmount}</span>
-      </div>
-      <div className={classes.actions}>
-        <button className={classes['button--alt']} onClick={props.onClose}>
-          Close
-        </button>
-        {hasItems && <button className={classes.button}>Order</button>}
-      </div>
+      <form onSubmit={formSubmissionHandler}>
+        {cartItems}
+        <div className={classes.total}>
+          <span>Total Amount</span>
+          <span>{totalAmount}</span>
+        </div>
+        <div className={classes.actions}>
+          <button className={classes["button--alt"]} onClick={props.onClose}>
+            Close
+          </button>
+          {hasItems && <button className={classes.button}>Order</button>}
+        </div>
+      </form>
     </Modal>
   );
 };
