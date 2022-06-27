@@ -2,8 +2,8 @@ import { Fragment, useEffect } from "react";
 import { Link, Route, useParams, useRouteMatch } from "react-router-dom";
 import Comments from "../components/comments/Comments";
 import HighlightedQuote from "../components/quotes/HighlightedQuote";
-import useHttp from "../components/hooks/use-http";
-import { getSingleQuote } from "../components/lib/api";
+import useHttp from "../hooks/use-http";
+import { getSingleQuote } from "../lib/api";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 const DUMMY_QUOTES = [

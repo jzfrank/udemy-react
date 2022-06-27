@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import useHttp from "../components/hooks/use-http";
-import { addQuote } from "../components/lib/api";
+import useHttp from "../hooks/use-http";
+import { addQuote } from "../lib/api";
 import QuoteForm from "../components/quotes/QuoteForm";
 
 const NewQuote = () => {
