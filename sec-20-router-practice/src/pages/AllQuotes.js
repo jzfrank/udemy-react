@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import QuoteList from "../components/quotes/QuoteList";
 import useHttp from "../hooks/use-http";
 import { getAllQuotes } from "../lib/api";
@@ -6,8 +6,6 @@ import LoadingSpinner from "../components/ui/LoadingSpinner";
 import NoQuotesFound from "../components/quotes/NoQuotesFound";
 
 const AllQuotes = () => {
-  const [quotes, setQuotes] = useState([]);
-
   const {
     sendRequest,
     status,
@@ -15,15 +13,9 @@ const AllQuotes = () => {
     error,
   } = useHttp(getAllQuotes, true);
 
-  if (loadedQuotes && quotes.length !== loadedQuotes.length) {
-    setQuotes(loadedQuotes);
-  }
-
-  console.log(loadedQuotes);
-
   useEffect(() => {
     sendRequest();
-  }, [sendRequest, quotes]);
+  }, [sendRequest]);
 
   if (status === "pending") {
     return (
